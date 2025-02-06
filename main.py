@@ -6,6 +6,7 @@ import datetime as dt
 
 load_dotenv()
 
+# NUTRI
 nutri_id = os.getenv("NUTRI_APP_ID")
 nutri_api_key = os.getenv("NUTRI_API_KEY")
 nutri_base = os.getenv("NUTRI_BASE_ENDPOINT")
@@ -18,11 +19,8 @@ nl_exercise_endpoint = f"{nutri_base}/v2/natural/exercise"
 current_date = dt.datetime.now()
 formatted_date = current_date.strftime("%d/%m/%Y")
 formatted_time = current_date.strftime("%X")
-# print(f"Date: {formatted_date}")
-# print(f"Time: {formatted_time}")
 
 user_query = input("Tell me which exercise you did: ")
-# print(user_query)
 
 nutri_headers = {
     "x-app-id": nutri_id,
@@ -36,9 +34,7 @@ nutri_json = {
 nutri_response = requests.post(nl_exercise_endpoint,json=nutri_json, headers=nutri_headers)
 nutri_response.raise_for_status()
 
-# print(nutri_response.json())
 nutri_data = nutri_response.json()["exercises"]
-# print(json.dumps(nutri_data, indent=4))
 for data in nutri_data:
     exercise = data["name"]
     duration = data["duration_min"]
